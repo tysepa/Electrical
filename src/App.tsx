@@ -132,36 +132,19 @@ function App() {
                 </div>
               </div>
 
-              {/* Glowing Interactive Circuit Visual */}
+              {/* Glowing Profile Photo of Owner */}
               <div className="hero-visual">
-                <div className="circuit-wrapper">
-                  <svg viewBox="0 0 200 200" className="circuit-svg">
-                    {/* Background Grid */}
-                    <path d="M 0,20 H 200 M 0,40 H 200 M 0,60 H 200 M 0,80 H 200 M 0,100 H 200 M 0,120 H 200 M 0,140 H 200 M 0,160 H 200 M 0,180 H 200" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
-                    <path d="M 20,0 V 200 M 40,0 V 200 M 60,0 V 200 M 80,0 V 200 M 100,0 V 200 M 120,0 V 200 M 140,0 V 200 M 160,0 V 200 M 180,0 V 200" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
-                    
-                    {/* Main transformer circle */}
-                    <circle cx="100" cy="100" r="30" fill="none" stroke="rgba(6, 182, 212, 0.2)" strokeWidth="6" />
-                    <circle cx="100" cy="100" r="20" fill="none" stroke="var(--accent-cyan)" strokeWidth="2" />
-                    
-                    {/* Circuit lines */}
-                    <path d="M 30,100 H 70" stroke="var(--accent-cyan)" strokeWidth="2.5" />
-                    <path d="M 130,100 H 170" stroke="var(--accent-cyan)" strokeWidth="2.5" />
-                    <path d="M 100,30 V 70" stroke="var(--accent-amber)" strokeWidth="2.5" />
-                    <path d="M 100,130 V 170" stroke="var(--accent-amber)" strokeWidth="2.5" />
-                    
-                    {/* Diagonals */}
-                    <path d="M 50,50 L 80,80" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" />
-                    <path d="M 150,150 L 120,120" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" />
-                    
-                    {/* Pulse dots */}
-                    <circle cx="30" cy="100" r="4" fill="var(--accent-cyan)" />
-                    <circle cx="170" cy="100" r="4" fill="var(--accent-cyan)" />
-                    <circle cx="100" cy="30" r="4" fill="var(--accent-amber)" />
-                    <circle cx="100" cy="170" r="4" fill="var(--accent-amber)" />
-                    
-                    {/* Central spark */}
-                    <path d="M 95,95 L 105,95 L 98,105 L 108,105 L 96,113 L 102,113" stroke="var(--accent-amber)" strokeWidth="2" fill="none" />
+                <div className="profile-wrapper">
+                  <div className="profile-glow-circle"></div>
+                  <img src="/avatar.png" alt={profile.name} className="profile-image" />
+                  
+                  {/* Decorative Circuit Indicators Overlay */}
+                  <svg viewBox="0 0 100 100" className="profile-circuit-svg">
+                    <circle cx="50" cy="50" r="47" stroke="var(--accent-cyan)" strokeWidth="1.5" fill="none" strokeDasharray="6,4" />
+                    <line x1="0" y1="50" x2="15" y2="50" stroke="var(--accent-cyan)" strokeWidth="2" />
+                    <line x1="85" y1="50" x2="100" y2="50" stroke="var(--accent-cyan)" strokeWidth="2" />
+                    <circle cx="15" cy="50" r="3" fill="var(--accent-cyan)" />
+                    <circle cx="85" cy="50" r="3" fill="var(--accent-cyan)" />
                   </svg>
                 </div>
               </div>
@@ -171,12 +154,22 @@ function App() {
           {/* SKILLS & CERTIFICATIONS SECTION */}
           <section className="skills-section">
             <div className="container">
-              <div className="about-card">
-                <h2 className="card-title" style={{ fontSize: "1.5rem" }}>
-                  <ShieldCheck size={20} />
-                  <span>Professional Profile Summary</span>
-                </h2>
-                <p className="about-text">{profile.bio}</p>
+              <div className="about-container">
+                <div className="about-card" style={{ marginBottom: 0 }}>
+                  <h2 className="card-title" style={{ fontSize: "1.5rem" }}>
+                    <ShieldCheck size={20} />
+                    <span>Professional Profile Summary</span>
+                  </h2>
+                  <p className="about-text">{profile.bio}</p>
+                </div>
+                
+                <div className="services-showcase-wrapper">
+                  <img src="/services.png" alt="Industrial Electrical Work" className="services-showcase-image" />
+                  <div className="services-caption">
+                    <Zap size={14} style={{ color: "var(--accent-amber)" }} />
+                    <span>Verified High-Voltage Commissioning</span>
+                  </div>
+                </div>
               </div>
 
               <div className="grid-2col">
