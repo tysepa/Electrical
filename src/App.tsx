@@ -2,15 +2,17 @@ import { useState, useEffect } from "react";
 import { 
   defaultProfile, 
   defaultExperiences, 
-  defaultProjects 
+  defaultProjects,
+  defaultGalleryItems
 } from "./data";
 import type { PortfolioData } from "./data";
 import { ExperienceCard } from "./components/ExperienceCard";
 import { ProjectCard } from "./components/ProjectCard";
+import { FieldGallery } from "./components/FieldGallery";
 import { AdminPanel } from "./components/AdminPanel";
 import { 
   Zap, User, Phone, Mail, MapPin, Award, FileDown, 
-  ShieldCheck, CheckCircle2, Lock, Cpu
+  ShieldCheck, CheckCircle2, Lock, Cpu, Image as ImageIcon
 } from "lucide-react";
 
 const STORAGE_KEY = "electrician_portfolio_data";
@@ -24,7 +26,11 @@ function App() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        return {
+          ...parsed,
+          gallery: parsed.gallery && parsed.gallery.length > 0 ? parsed.gallery : defaultGalleryItems
+        };
       } catch (e) {
         console.error("Failed to parse saved portfolio data", e);
       }
@@ -32,7 +38,8 @@ function App() {
     return {
       profile: defaultProfile,
       experiences: defaultExperiences,
-      projects: defaultProjects
+      projects: defaultProjects,
+      gallery: defaultGalleryItems
     };
   });
 
@@ -47,7 +54,7 @@ function App() {
     window.scrollTo(0, 0);
   }, [activeTab]);
 
-  const { profile, experiences, projects } = portfolioData;
+  const { profile, experiences, projects, gallery } = portfolioData;
 
   // Categories list for project filtering
   const categories = ["All", "Grid Operations", "Hotel Maintenance", "Commercial & Kitchen", "Safety & Custom"];
@@ -62,8 +69,11 @@ function App() {
       <header className="header">
         <div className="container header-container">
           <a href="#" className="logo-section" onClick={() => setActiveTab("portfolio")}>
-            <Zap size={22} className="logo-icon" />
-            <span className="logo-text">Nirere<span>.Elect</span></span>
+            <img src="/logo.png" alt="Nepo Tech Logo" className="logo-img" />
+            <div className="logo-brand-details">
+              <span className="logo-text">NEPO <span>TECH</span></span>
+              <span className="logo-tagline">WE LIGHT OUR WORLD</span>
+            </div>
           </a>
 
           <nav className="nav-links">
@@ -74,6 +84,22 @@ function App() {
               <User size={16} />
               <span>Portfolio</span>
             </button>
+            {activeTab === "portfolio" && (
+              <a 
+                href="#gallery" 
+                className="nav-btn"
+                onClick={(e) => {
+                  const el = document.getElementById("gallery");
+                  if (el) {
+                    e.preventDefault();
+                    el.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+              >
+                <ImageIcon size={16} />
+                <span>Field Gallery</span>
+              </a>
+            )}
             <button 
               className={`nav-btn admin-btn ${activeTab === "admin" ? "active" : ""}`}
               onClick={() => setActiveTab("admin")}
@@ -266,6 +292,9 @@ function App() {
             </div>
           </section>
 
+          {/* FIELD GALLERY SECTION */}
+          <FieldGallery items={gallery} />
+
           {/* CONTACT CTA SECTION */}
           <section id="contact" className="contact-section">
             <div className="container">
@@ -322,8 +351,11 @@ function App() {
       <footer className="footer">
         <div className="container footer-container">
           <a href="#" className="logo-section" onClick={() => setActiveTab("portfolio")}>
-            <Zap size={18} className="logo-icon" />
-            <span className="logo-text">Nirere<span>.Elect</span></span>
+            <img src="/logo.png" alt="Nepo Tech Logo" className="logo-img" />
+            <div className="logo-brand-details">
+              <span className="logo-text">NEPO <span>TECH</span></span>
+              <span className="logo-tagline">WE LIGHT OUR WORLD</span>
+            </div>
           </a>
           <p className="footer-text">
             © {new Date().getFullYear()} {profile.name}. All Rights Reserved. Licensed Class A Electrical Operations.
